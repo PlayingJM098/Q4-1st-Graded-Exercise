@@ -1,31 +1,64 @@
-// Loads the express module
-const express = require("express");
-const hbs = require("hbs");
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
 
-const bodyParser = require("body-parser");
-
-const path = require("path");
-
-//Creates our express server
 const app = express();
-const port = 3000;
+const PORT = 3000; // Change if needed
 
-//Serves static files (we need it to import a css file)
-app.use(express.static(path.join(__dirname, "public")));
-app.set("view engine", "hbs");
+// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public')); // Serve static files (like CSS)
 
-//Sets a basic route
+// Set Handlebars as the template engine
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views')); // Ensure .hbs files are inside "views" folder
 
-// Render the initial page with the number input form
-app.get("/", (req, res) => {
-  res.render("index");
+// Route for Home Page
+app.get('/', (req, res) => {
+    res.render('index');
 });
 
-// Create express route binder for draw.hbs and get the data from the url as parameters
-// that came from index.hbs
+// Route to Handle Form Submission
+app.post('/happy', (req, res) => {
+    const { name, gender, number, ...participants } = req.body;
 
+    let participantNames = [];
 
+    // Extract participant names and attendance (checkbox values)
+    for (let i = 1; i <= number; i++) {
+        let participantName = participants[`name${i}`] || `Guest ${i}`;
+        let isGoing = participants[`checkbox${i}`] ? "Yes" : "No";
 
-//Makes the app listen to port 3000
-app.listen(port, () => console.log(`App listening to port ${port}`));
+        participantNames.push({ name: participantName, going: isGoing });
+    }
+
+    // Ensure at least 4 participants for the song
+    while (participantNames.length < 4) {
+        participantNames.push({ name: `Guest ${participantNames.length + 1}`, going: "No" });
+    }
+
+    // Generate Happy Birthday Song Lyrics using participant names
+    const songLines = [
+        `${participantNames[0].name}: Happy`, `${participantNames[1].name}: birthday`, 
+        `${participantNames[2].name}: to`, `${participantNames[3].name}: you!`,
+        `${participantNames[0].name}: Happy`, `${participantNames[1].name}: birthday`, 
+        `${participantNames[2].name}: dear`, `${name}.`,
+        `${participantNames[0].name}: Happy`, `${participantNames[1].name}: birthday`, 
+        `${participantNames[2].name}: to`, `${participantNames[3].name}: you!`,
+        `${participantNames[0].name}: For, he/she's a jolly good fellow, which nobody can deny!`
+    ];
+
+    // Render "happy.hbs" with user data
+    res.render('happy', { 
+        name, 
+        gender, 
+        number, 
+        participants: participantNames, 
+        songLines 
+    });
+});
+
+// Start the Server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
