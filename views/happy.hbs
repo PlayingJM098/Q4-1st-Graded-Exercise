@@ -3,46 +3,50 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width", initial-scale=1>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="">
   <meta name="description" content=" ">
   <meta name="keywords" content="">
-  <title>Canseco - CS 3 </title>
-  <!-- using the w3.css framework to show how predefined css classes can be used inside an html document.  -->
+  <title>Happy Birthday Song</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <!-- local css property definitions to further enhance the page -->
   <link href="style.css" rel="stylesheet" type="text/css" />
-
-  <link rel="icon" type="image/x-icon" href="">
 </head>
 
-<!--- classes that starts with w3 are defined inside w3.css -->
 <body class="w3-container w3-auto">
-
-  <!-- do define the navigation bar using classes to define a button styled as a link
-      take note: just a demonsration on how it can be used. Responsive to the size of the viewport
-  -->
   <div class="w3-bar w3-black">
-    <a href="/" class="w3-bar-item w3-button w3-mobile">Home</a>
-    <a href="#" class="w3-bar-item w3-button w3-mobile">Happy</a> 
+    <a href="/" class="w3-bar-item w3-button">Home</a>
+    <a href="/happy" class="w3-bar-item w3-button w3-blue">Happy</a>
   </div>
 
-
-  <header class="w3-container" id="header" > 
-    <h1>Roy Canseco - III-K - Jan 2025</h1>
-    <h2> Birthday </h2>
-  </header>
-
-  <section class="w3-container" id="input"> 
+  <div class="w3-container w3-margin-top">
     <h2>Output</h2>
-    <!-- Place your output here -->
-  </section>
+    <div class="w3-panel w3-black w3-padding">
+      <p><strong>Name:</strong> {{name}}</p>
+      <p><strong>Gender:</strong> {{gender}}</p>
+      <p><strong>Number of Participants:</strong> {{number}}</p>
 
-  <footer class="w3-container ">
-    <p> &copy; 2024 CS3 Teachers </p>
-  </footer>
+      <h3>Participants</h3>
+      <table class="w3-table w3-bordered w3-striped">
+        <tr>
+          <th>Name</th>
+          <th>Going?</th>
+        </tr>
+        {{#each participants}}
+          <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.going}}</td>
+          </tr>
+        {{/each}}
+      </table>
+    </div>
 
-  
+    <h2>Happy Birthday Song</h2>
+    <div class="w3-panel w3-black w3-padding">
+      {{#each songLines}}
+        <p>{{this}}</p>
+      {{/each}}
+    </div>
+  </div>
 </body>
 
 </html>
