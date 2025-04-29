@@ -1,102 +1,112 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width", initial-scale=1>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Jeremiah P. Rahon">
-  <meta name="description" content=" Birthday Song ">
-  <meta name="keywords" content="">
-  <title>RAHON - CS 3 </title>
-  <!-- using the w3.css framework to show how predefined css classes can be used inside an html document.  -->
+  <meta name="description" content="Birthday Celebration App - Create personalized birthday songs and manage guest lists">
+  <meta name="keywords" content="birthday, celebration, party, songs, guests, birthday wishes">
+  <title>RAHON - CS3</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <!-- local css property definitions to further enhance the page -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet" type="text/css" />
-
-  <link rel="icon" type="image/x-icon" href="">
 </head>
 
-<!--- classes that starts with w3 are defined inside w3.css -->
 <body class="w3-container w3-auto">
-
-  <!-- do define the navigation bar using classes to define a button styled as a link
-      take note: just a demonsration on how it can be used. Responsive to the size of the viewport
-  -->
-  <div class="w3-bar w3-black">
+  <div class="w3-bar">
     <a href="/" class="w3-bar-item w3-button w3-mobile">Home</a>
-    <a href="/happy" class="w3-bar-item w3-button w3-mobile">Happy</a> 
+    <a href="/happy" class="w3-bar-item w3-button w3-mobile">Celebration</a> 
   </div>
 
-  <header class="w3-container" id="header" > 
-    <h1>Jeremiah Rahon - III-Sr - Mar 2025</h1>
-    <h2> Birthday </h2>
+  <header class="w3-container" id="header"> 
+    <h1>Jeremiah Rahon - Birthday Celebration App</h1>
+    <h2>Create Your Personalized Birthday Celebration</h2>
   </header>
 
   <section class="w3-container" id="input"> 
-    <h2>Input</h2>
-    <!-- define the form and prevents its default action after it is submitted then call three functions-->
-    <form id="input_form" method="post" action="/happy" onsubmit="return confirm('Sure to Submit')">
-
+    <h2>Party Details</h2>
+    <form id="input_form" method="post" action="/happy" onsubmit="return validateForm()">
       <div class="w3-row">
         <div class="w3-third w3-panel w3-card w3-margin">
-          <label for="name">Your nickname:</label></br>
+          <label for="name">Celebrant's Name:</label><br>
           <input class="w3-input" type="text" id="name" name="name" required><br>
 
           <label for="gender">Gender: </label><br>
           <input class="w3-radio" type="radio" id="male" name="gender" value="male" required>
-          <label for="male">Male</label> <br>
+          <label for="male">Male</label><br>
           <input class="w3-radio w3-margin-bottom" type="radio" id="female" name="gender" value="female">
           <label for="female">Female</label>
         </div>
       
-      <div class="w3-panel w3-third w3-card w3-margin w3-padding">
-        <label for="number"> Number of close family and friends: </label><br>
-        <select class="w3-select w3-border" id="number" name="number" onchange="generateGuestFields()" required>
-          <option value="">--Please choose a number--</option>
-          <script>
-            for(let i=1; i<=16; i++ ){
-              document.write(`<option value="${i}"> ${i} </option>`);
-            }
-          </script>
-        </select> <br>
+        <div class="w3-panel w3-third w3-card w3-margin w3-padding">
+          <label for="number">Number of Guests:</label><br>
+          <select class="w3-select w3-border" id="number" name="number" onchange="generateGuestFields()" required>
+            <option value="">--Please choose a number--</option>
+            <script>
+              for(let i=1; i<=16; i++) {
+                document.write(`<option value="${i}">${i}</option>`);
+              }
+            </script>
+          </select><br>
 
-        <div id="guests"></div>
-        <input class="w3-button w3-black w3-margin" type="submit" value="Submit">
+          <div id="guests"></div>
+          <input class="w3-button w3-purple w3-margin" type="submit" value="Create Celebration">
+        </div>
       </div>
-    </div>
     </form> 
   </section>
 
-  <footer class="w3-container ">
-    <p> &copy; Jeremiah Rahon </p>
+  <footer class="w3-container w3-padding-16">
+    <p>&copy; 2025 Jeremiah Rahon - Birthday Celebration App</p>
   </footer>
 
   <script>
-    function generateGuestFields(){
+    // Generate input fields for guest names and attendance
+    function generateGuestFields() {
       const num = document.getElementById('number').value;
       const container = document.getElementById('guests');
-      container.innerHTML = 'Enter the name(s) of your invitees: <br>';
+      container.innerHTML = '<h3>Guest List:</h3>';
 
-      for (let i=0; i<num; i++){
+      for (let i = 0; i < num; i++) {
+        const div = document.createElement('div');
+        div.className = 'participant-input';
+
         const input = document.createElement('input');
         input.type = 'text';
-        input.name = 'participant' + (i+1);
+        input.name = 'name' + (i + 1);
+        input.placeholder = 'Guest ' + (i + 1);
         input.className = 'w3-input w3-half';
-        container.appendChild(input);
+        input.required = true;
+        div.appendChild(input);
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.id = 'checkbox' + (i+1);
-        checkbox.name = 'checkbox' + (i+1);
-        checkbox.className = 'w3-check w3-margin-left w3-margin-right w3-margin-bottom';
-        container.appendChild(checkbox);
+        checkbox.id = 'checkbox' + (i + 1);
+        checkbox.name = 'checkbox' + (i + 1);
+        checkbox.className = 'w3-check w3-margin-left w3-margin-right';
+        div.appendChild(checkbox);
 
         const label = document.createElement('label');
         label.htmlFor = checkbox.id;
-        label.textContent = "Going?";
-        container.appendChild(label);
-        container.appendChild(document.createElement('br'));
+        label.textContent = "Attending";
+        div.appendChild(label);
+
+        container.appendChild(div);
       }
+    }
+
+    // Validate form before submission
+    function validateForm() {
+      const name = document.getElementById('name').value.trim();
+      const gender = document.querySelector('input[name="gender"]:checked');
+      const number = document.getElementById('number').value;
+
+      if (!name || !gender || !number) {
+        alert('Please fill in all required fields!');
+        return false;
+      }
+
+      return confirm('Ready to create your celebration?');
     }
   </script>
 </body>
