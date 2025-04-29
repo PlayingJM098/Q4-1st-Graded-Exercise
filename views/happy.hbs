@@ -1,63 +1,62 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="John Smith">
-  <meta name="description" content="Birthday Celebration App - Personalized birthday celebration">
-  <meta name="keywords" content="birthday, celebration, party, songs, guests, birthday wishes">
-  <title>RAHON - CS3</title>
+  <meta name="viewport" content="width=device-width", initial-scale="1">
+  <meta name="author" content="Rajveer Miguel S. Madrid">
+  <meta name="description" content="Displays data from collected birthday form and sings a song to the celebrant">
+  <meta name="keywords" content="CS3, 4th Graded, PSHS-MC, Week 3">
+  <title>RAHON - CS3 Happy Birthday</title>
+  <!-- using the w3.css framework to show how predefined css classes can be used inside an html document.  -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <!-- local css property definitions to further enhance the page -->
   <link href="style.css" rel="stylesheet" type="text/css" />
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
+<!--- classes that starts with w3 are defined inside w3.css -->
 <body class="w3-container w3-auto">
-  <div class="w3-bar">
-    <a href="/" class="w3-bar-item w3-button">Home</a>
-    <a href="/happy" class="w3-bar-item w3-button w3-purple">Celebration</a>
+  
+
+  <!-- do define the navigation bar using classes to define a button styled as a link
+      take note: just a demonsration on how it can be used. Responsive to the size of the viewport
+  -->
+  <div class="w3-bar w3-black">
+    <a href="/" class="w3-bar-item w3-button w3-mobile">Home</a>
+    <a href="#" class="w3-bar-item w3-button w3-mobile">Happy</a> 
   </div>
 
-  <div class="w3-container w3-margin-top">
-    <div id="header">
-      <h1>🎉 Birthday Celebration for {{name}} 🎂</h1>
-    </div>
 
-    <div class="w3-panel w3-card-4 w3-padding-16">
-      <h2>Celebration Details</h2>
-      <div class="w3-row">
-        <div class="w3-half">
-          <p><strong>Celebrant:</strong> {{name}}</p>
-          <p><strong>Gender:</strong> {{gender}}</p>
-          <p><strong>Number of Guests:</strong> {{number}}</p>
-        </div>
-      </div>
+  <header class="w3-container" id="header" > 
+    <h1>Jeremiah Rahon - 9 Sr - March 2025</h1>
+    <h2> Birthday </h2>
+  </header>
 
-      <h3>Guest List</h3>
-      <table class="w3-table w3-bordered w3-striped">
-        <tr class="w3-purple">
-          <th>Guest Name</th>
-          <th>Attending</th>
-        </tr>
-        {{#each participants}}
-          <tr>
-            <td>{{this.name}}</td>
-            <td>{{this.going}}</td>
-          </tr>
-        {{/each}}
-      </table>
-    </div>
+  <section class="w3-container" id="input"> 
+    <h2>Output</h2>
+    <!-- Place your output here -->
+    Nickname: {{nickname}} <br/>
+    Gender: {{gender}} <br/>
+    Number Invited: {{number}} <br/><br/>
+    {{#each list}}
+      Name: {{@key}} <br/>
+      Going?: {{this}} <br/>
+    {{/each}} <br/>
+    Number Going: {{singersNum}} <br/>
 
-    <div id="output">
-      <h2>🎵 Birthday Song 🎵</h2>
-      {{#each songLines}}
-        <p>{{this}}</p>
-      {{/each}}
-    </div>
-  </div>
+    <h2>Song</h2>
+    {{#each song}}
+      {{singer}} : {{lyric}} <br/>
+    {{/each}}
+  </section>
 
-  <footer class="w3-container w3-padding-16">
-    <p>&copy; 2025 Jeremiah Rahon - Birthday Celebration App</p>
+  <footer class="w3-container ">
+    <p> &copy; 2025 Jeremiah Rahon - 9 Sr </p>
   </footer>
+
+  
 </body>
+
 </html>
