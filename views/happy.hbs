@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="">
-  <meta name="description" content=" ">
-  <meta name="keywords" content="">
-  <title>Happy Birthday Song</title>
+  <meta name="author" content="John Smith">
+  <meta name="description" content="Birthday Celebration App - Personalized birthday celebration">
+  <meta name="keywords" content="birthday, celebration, party, songs, guests, birthday wishes">
+  <title>Your Birthday Celebration - Jeremiah Rahon</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="w3-container w3-auto">
-  <div class="w3-bar w3-black">
+  <div class="w3-bar">
     <a href="/" class="w3-bar-item w3-button">Home</a>
-    <a href="/happy" class="w3-bar-item w3-button w3-blue">Happy</a>
+    <a href="/happy" class="w3-bar-item w3-button w3-purple">Celebration</a>
   </div>
 
   <div class="w3-container w3-margin-top">
-    <h2>Output</h2>
-    <div class="w3-panel w3-black w3-padding">
-      <p><strong>Name:</strong> {{name}}</p>
-      <p><strong>Gender:</strong> {{gender}}</p>
-      <p><strong>Number of Participants:</strong> {{number}}</p>
+    <div id="header">
+      <h1>🎉 Birthday Celebration for {{name}} 🎂</h1>
+    </div>
 
-      <h3>Participants</h3>
+    <div class="w3-panel w3-card-4 w3-padding-16">
+      <h2>Celebration Details</h2>
+      <div class="w3-row">
+        <div class="w3-half">
+          <p><strong>Celebrant:</strong> {{name}}</p>
+          <p><strong>Gender:</strong> {{gender}}</p>
+          <p><strong>Number of Guests:</strong> {{number}}</p>
+        </div>
+      </div>
+
+      <h3>Guest List</h3>
       <table class="w3-table w3-bordered w3-striped">
-        <tr>
-          <th>Name</th>
-          <th>Going?</th>
+        <tr class="w3-purple">
+          <th>Guest Name</th>
+          <th>Attending</th>
         </tr>
         {{#each participants}}
           <tr>
@@ -40,13 +48,16 @@
       </table>
     </div>
 
-    <h2>Happy Birthday Song</h2>
-    <div class="w3-panel w3-black w3-padding">
+    <div id="output">
+      <h2>🎵 Birthday Song 🎵</h2>
       {{#each songLines}}
         <p>{{this}}</p>
       {{/each}}
     </div>
   </div>
-</body>
 
+  <footer class="w3-container w3-padding-16">
+    <p>&copy; 2025 Jeremiah Rahon - Birthday Celebration App</p>
+  </footer>
+</body>
 </html>
